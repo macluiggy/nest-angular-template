@@ -1,4 +1,9 @@
-import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
+import {
+  MiddlewareConsumer,
+  Module,
+  ModuleMetadata,
+  RequestMethod,
+} from '@nestjs/common';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { JwtModule } from '@nestjs/jwt';
@@ -8,10 +13,11 @@ import { LocalStrategy } from './strategies/local.strategy';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { DeleteDummyUserMiddleware } from './middleware/delete.dummy.user';
 import { API_VERSION } from '../common/constants';
+import { GoogleStrategy } from './strategies/google.strategy';
 
-@Module({
+const authModuleMetadata: ModuleMetadata = {
   controllers: [AuthController],
-  providers: [AuthService, LocalStrategy, JwtStrategy],
+  providers: [AuthService, LocalStrategy, JwtStrategy, GoogleStrategy],
   imports: [
     UsersModule,
     PassportModule,
@@ -22,7 +28,8 @@ import { API_VERSION } from '../common/constants';
       },
     }),
   ],
-})
+};
+@Module(authModuleMetadata)
 export class AuthModule {
   configure(consumer: MiddlewareConsumer) {
     consumer.apply(DeleteDummyUserMiddleware).forRoutes({
@@ -31,3 +38,5 @@ export class AuthModule {
     });
   }
 }
+
+export { authModuleMetadata };

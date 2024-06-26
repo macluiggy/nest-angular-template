@@ -1,4 +1,11 @@
-import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  BaseEntity,
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 @Entity('seeders')
 export class SeederEntity extends BaseEntity {
@@ -11,15 +18,15 @@ export class SeederEntity extends BaseEntity {
   @Column({ type: 'boolean', nullable: false, default: false })
   executed: boolean;
 
-  @Column({
-    type: 'timestamp',
+  @CreateDateColumn({
+    name: 'created_at',
     default: () => 'CURRENT_TIMESTAMP',
     nullable: false,
   })
   created_at: Date;
 
-  @Column({
-    type: 'timestamp',
+  @UpdateDateColumn({
+    name: 'updated_at',
     default: () => 'CURRENT_TIMESTAMP',
     nullable: false,
   })

@@ -1,0 +1,36 @@
+version: '3.8'
+
+services:
+  app_prod:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - ${PORT}:${PORT}
+    env_file: .env
+    depends_on:
+      - db_prod
+    networks:
+      - app-prod-network
+    volumes:
+      - .:/app
+
+  db_prod:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: ${DB_USER_PROD}
+      POSTGRES_PASSWORD: ${DB_PASSWORD_PROD}
+      POSTGRES_DB: ${DB_NAME_PROD}
+    ports:
+      - ${DB_PORT_PROD}:5432
+    volumes:
+      - prod_data:/var/lib/postgresql/data
+    networks:
+      - app-prod-network
+
+networks:
+  app-prod-network:
+
+volumes:
+  prod_data:

@@ -10,10 +10,14 @@ import {
   Req,
   Scope,
   Inject,
+  UploadedFile,
+  ParseFilePipe,
+  MaxFileSizeValidator,
+  FileTypeValidator,
+  UseInterceptors,
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { UserDto } from './dto/users.dto';
-import { API_VERSION } from '../common/constants';
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import ApiStandardResponse from '../common/interceptors/api-response';
@@ -21,12 +25,15 @@ import getMessages from '../lang/getMessages';
 import Lang from '../lang/lang.type';
 import { REQUEST } from '@nestjs/core';
 import { Request } from 'express';
+import getApiEndpoint from '../common/utils/getApiEndpoint';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { Public } from '../common/decorators/public.decorator';
 
 @ApiTags('users')
 @ApiBearerAuth()
 @UseGuards(JwtAuthGuard)
 @Controller({
-  path: `api/${API_VERSION}/users`,
+  path: getApiEndpoint('users'),
   scope: Scope.REQUEST,
 })
 export class UsersController {
@@ -52,19 +59,41 @@ export class UsersController {
     return await this.userService.findAll();
   }
 
+  @Public()
   @Get(':id')
-  async findOne(@Param('id') id: string) {
+  async findOne(@Param('id') id: number) {
     return await this.userService.findOne(id);
   }
 
   @Put(':id')
+  @UseInterceptors(FileInterceptor('profileImage'))
   async update(
-    @Param('id') id: string,
+    @Param('id') id: number,
     @Body() userDTO: UserDto,
-    @Req() req: any,
+    @Req() req: Request & { user: any },
+    @UploadedFile(
+      new ParseFilePipe({
+        validators: [
+          new MaxFileSizeValidator({
+            // max size in bytes
+            maxSize: 1024 * 1024,
+            message(maxSize) {
+              return `File too large. Max size is ${maxSize}`;
+            },
+          }),
+          new FileTypeValidator({
+            // regex that starts with image and ends with png, jpg, or jpeg
+            fileType: /^image\/(png|jpg|jpeg)$/,
+          }),
+        ],
+        fileIsRequired: false,
+      }),
+    )
+    profileImage: Express.Multer.File,
   ) {
     const preferredLanguage = req.user.preferredLanguage;
     const messages = getMessages(preferredLanguage);
+    userDTO.profileImage = profileImage;
     return new ApiStandardResponse(
       await this.userService.update(id, userDTO),
       messages.USER.UPDATED,
@@ -72,7 +101,7 @@ export class UsersController {
   }
 
   @Delete(':id')
-  async remove(@Param('id') id: string) {
+  async remove(@Param('id') id: number) {
     return await this.userService.remove(id);
   }
 }

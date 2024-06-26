@@ -1,13 +1,12 @@
 import { runSeeders } from 'typeorm-extension';
 import datasourceConfig from '../config/datasource.config';
 
-const dS = datasourceConfig;
-export default dS;
+export default datasourceConfig;
 
 (async () => {
-  await dS.initialize();
+  await datasourceConfig.initialize();
 
-  await runSeeders(dS, {
+  await runSeeders(datasourceConfig, {
     seedName: 'seeds',
   });
 })();

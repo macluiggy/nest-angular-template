@@ -19,7 +19,12 @@ export class UserDto {
   @ApiProperty({ example: 'John Doe' })
   @IsNotEmpty()
   @IsString()
-  fullName: string;
+  firstName: string;
+
+  @ApiProperty({ example: 'Doe' })
+  @IsOptional()
+  @IsString()
+  lastName?: string;
 
   @ApiProperty({ example: 'john.doe@example.com' })
   @IsNotEmpty()
@@ -28,15 +33,14 @@ export class UserDto {
   email: string;
 
   @ApiProperty({ example: 'password123' })
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
-  @Length(8, 150)
-  password: string;
+  password?: string;
 
   @ApiProperty({ example: true })
-  @IsNotEmpty()
+  @IsOptional()
   @IsBoolean()
-  isPasswordReset: boolean;
+  isPasswordReset?: boolean;
 
   @ApiProperty({ example: 'This is my signature' })
   @IsOptional()
@@ -45,19 +49,19 @@ export class UserDto {
   signature?: string;
 
   @ApiProperty({ example: true })
-  @IsNotEmpty()
+  @IsOptional()
   @IsBoolean()
-  isActive: boolean;
+  isActive?: boolean;
 
   @ApiProperty({ example: 'admin' })
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
-  role: string;
+  role?: string;
 
   @ApiProperty({ example: '2022-01-01T00:00:00Z' })
-  @IsNotEmpty()
+  @IsOptional()
   @IsDateString()
-  createdAt: Date;
+  createdAt?: Date;
 
   @ApiProperty({ example: '2022-01-01T00:00:00Z' })
   @IsOptional()
@@ -74,4 +78,6 @@ export class UserDto {
   @IsString()
   @Length(0, 20)
   phone?: string;
+
+  profileImage?: Express.Multer.File;
 }

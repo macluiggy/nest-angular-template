@@ -1,10 +1,21 @@
-import Lang from './lang.type';
+import Lang, { BasicCrud } from './lang.type';
+
+function getGenericCrudMessagesEN(entity: string): BasicCrud {
+  return {
+    UPDATED: `${entity} updated successfully`,
+    ALREADY_EXISTS: `${entity} already exists`,
+    CREATED: `${entity} created successfully`,
+    NOT_FOUND: `${entity} not found`,
+    DELETED: `${entity} deleted successfully`,
+  };
+}
 
 const EN: Lang = {
   USER: {
-    UPDATED: 'User updated successfully',
-    ALREADY_EXISTS: 'User already exists',
-    CREATED: 'User created successfully',
+    ...getGenericCrudMessagesEN('User'),
+  },
+  POST: {
+    ...getGenericCrudMessagesEN('Post'),
   },
 };
 

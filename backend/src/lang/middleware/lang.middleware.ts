@@ -1,6 +1,7 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { Request, Response, NextFunction } from 'express';
 import { JwtService } from '@nestjs/jwt';
+import { DEFAULT_LANG } from '..';
 
 @Injectable()
 export class SetUserPreferredLanguage implements NestMiddleware {
@@ -12,7 +13,7 @@ export class SetUserPreferredLanguage implements NestMiddleware {
       // extract the token payload
       const payload = this.jwtService.decode(token);
 
-      const preferredLanguage = payload['preferredLanguage'] || 'es';
+      const preferredLanguage = payload?.['preferredLanguage'] || DEFAULT_LANG;
       req['preferredLanguage'] = preferredLanguage;
     }
 

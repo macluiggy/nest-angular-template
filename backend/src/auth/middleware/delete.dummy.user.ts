@@ -7,7 +7,8 @@ export class DeleteDummyUserMiddleware implements NestMiddleware {
   constructor(private readonly userService: UsersService) {}
   async use(req: Request, res: Response, next: NextFunction) {
     // Check if the user's name is "John Doe"
-    if (req.body && req.body['email'] === 'john.doe@example.com') {
+
+    if (req.body && req.body['email'] === 'johndoe@mail.com') {
       // Delete the user here
       // Your code to delete the user goes here
       const email = req.body['email'];

@@ -1,20 +1,24 @@
 import { setSeederFactory } from 'typeorm-extension';
-import { entitiesObject } from '../entities';
-const { User } = entitiesObject;
+import { DEFAULT_LANG } from '../../lang';
+import { UserEntity } from '../../users/users.entity';
 
-export default setSeederFactory(User, (faker) => {
-  const user = new User();
-  user.fullName = faker.person.fullName();
+export default setSeederFactory(UserEntity, (faker) => {
+  const user = new UserEntity();
+  user.firstName = faker.person.firstName();
+  user.lastName = faker.person.lastName();
   user.email = faker.internet.email({
-    firstName: user.fullName.split(' ')[0],
-    lastName: user.fullName.split(' ')[1],
+    firstName: user.firstName,
+    lastName: user.lastName,
   });
+  // add dummy so the dummy users can be easily identified and deleted in database
+  user.email = `dummy.${user.email}`; // use something like: select * from users where email like 'dummy.%'; to find all dummy users
   user.password = faker.internet.password();
   user.phone = faker.phone.number();
   user.username = faker.internet.userName({
-    firstName: user.fullName.split(' ')[0],
-    lastName: user.fullName.split(' ')[1],
+    firstName: user.firstName,
+    lastName: user.lastName,
   });
+  user.preferredLanguage = DEFAULT_LANG;
 
   return user;
 });
