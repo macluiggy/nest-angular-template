@@ -1,7 +1,7 @@
 import { Seeder, SeederFactoryManager } from 'typeorm-extension';
 import { DataSource } from 'typeorm';
 import { SeederEntity } from '../seeders.entity';
-import { User } from '../../users/users.entity';
+import { UserEntity } from '../../users/users.entity';
 import * as bcrypt from 'bcrypt';
 import { DEFAULT_LANG } from '../../lang';
 
@@ -24,7 +24,7 @@ export default class UserSeeder implements Seeder {
       return;
     }
 
-    const repository = dataSource.getRepository(User);
+    const repository = dataSource.getRepository(UserEntity);
     await repository.insert([
       {
         fullName: 'luiggy macias',
@@ -40,7 +40,7 @@ export default class UserSeeder implements Seeder {
 
     // ---------------------------------------------------
 
-    const userFactory = factoryManager.get(User);
+    const userFactory = factoryManager.get(UserEntity);
     userFactory.setMeta({
       preferredLanguage: DEFAULT_LANG,
     });

@@ -1,8 +1,8 @@
-import { User } from '../users/users.entity';
+import { UserEntity } from '../users/users.entity';
 import { SeederEntity } from './seeders.entity';
 
 export const entitiesObject = {
-  User,
+  UserEntity,
   SeederEntity,
 };
-export default [User, SeederEntity];
+export default [UserEntity, SeederEntity];

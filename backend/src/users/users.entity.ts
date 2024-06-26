@@ -2,8 +2,10 @@ import { Entity, PrimaryGeneratedColumn, Column, BeforeInsert } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { DEFAULT_LANG } from '../lang';
 
-@Entity()
-export class User {
+@Entity({
+  name: 'users',
+})
+export class UserEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 

@@ -5,19 +5,19 @@ import {
   UpdateEvent,
 } from 'typeorm';
 import { validateOrReject } from 'class-validator';
-import { User } from './users.entity';
+import { UserEntity } from './users.entity';
 
 @EventSubscriber()
-export class UserSubscriber implements EntitySubscriberInterface<User> {
+export class UserSubscriber implements EntitySubscriberInterface<UserEntity> {
   listenTo() {
-    return User;
+    return UserEntity;
   }
 
-  async beforeInsert(event: InsertEvent<User>) {
+  async beforeInsert(event: InsertEvent<UserEntity>) {
     await validateOrReject(event.entity);
   }
 
-  async beforeUpdate(event: UpdateEvent<User>) {
+  async beforeUpdate(event: UpdateEvent<UserEntity>) {
     await validateOrReject(event.entity);
   }
 }
