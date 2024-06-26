@@ -1,0 +1,19 @@
+meta {
+  name: delete user
+  type: http
+  seq: 5
+}
+
+delete {
+  url: {{base_url}}/users/3d2f3155-aba4-42ee-af37-7e68aaf5fe40
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{TOKEN}}
+}
+
+assert {
+  dsdds: eq dssdds
+}

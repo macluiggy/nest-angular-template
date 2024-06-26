@@ -1,0 +1,15 @@
+meta {
+  name: check user is following user
+  type: http
+  seq: 5
+}
+
+get {
+  url: {{base_url}}/follows/user/16/following/15
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{TOKEN}}
+}

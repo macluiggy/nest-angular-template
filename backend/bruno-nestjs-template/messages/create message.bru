@@ -1,0 +1,23 @@
+meta {
+  name: create message
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{base_url}}/messages
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{TOKEN}}
+}
+
+body:json {
+  {
+    "senderId": 75,
+    "receiverId": 76,
+    "content": "this message is from user 75"
+  }
+}

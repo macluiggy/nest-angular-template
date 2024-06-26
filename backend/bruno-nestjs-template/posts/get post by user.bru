@@ -1,0 +1,25 @@
+meta {
+  name: posts by user
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{base_url}}/posts/user/15?page=2&limit=1
+  body: json
+  auth: bearer
+}
+
+query {
+  page: 2
+  limit: 1
+}
+
+auth:bearer {
+  token: {{TOKEN}}
+}
+
+docs {
+  # create post
+  This endpoint is used to get all posts of a user.
+}

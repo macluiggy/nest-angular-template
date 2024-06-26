@@ -1,0 +1,32 @@
+meta {
+  name: update user
+  type: http
+  seq: 4
+}
+
+put {
+  url: {{base_url}}/users/1
+  body: multipartForm
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{TOKEN}}
+}
+
+body:json {
+   {
+      "fullName": "Luiggy",
+      "email": "ferrinluiggy@gmail.com",
+      "password": "123456"
+  }
+}
+
+body:multipart-form {
+  username: jonhdoe
+  firstName: John Doe
+  email: johndoe@mail.com
+  password: password
+  phone: 1234567890
+  profileImage: @file(/home/luiggy/Pictures/Screenshot_2023-04-12_08-34-53.png)
+}

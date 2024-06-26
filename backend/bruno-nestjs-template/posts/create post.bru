@@ -1,0 +1,28 @@
+meta {
+  name: create post
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{base_url}}/posts
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{TOKEN}}
+}
+
+body:json {
+  {
+    "title": "My first post",
+    "content": "This is my first post",
+    "userId": "1"
+  }
+}
+
+docs {
+  # create post
+  This endpoint creates a new post related to a user.
+}

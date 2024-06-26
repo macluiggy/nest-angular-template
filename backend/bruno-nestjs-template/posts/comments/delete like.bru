@@ -1,0 +1,15 @@
+meta {
+  name: delete like
+  type: http
+  seq: 5
+}
+
+delete {
+  url: {{base_url}}/post-comments/1
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{TOKEN}}
+}

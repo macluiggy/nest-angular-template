@@ -1,0 +1,22 @@
+meta {
+  name: update posts
+  type: http
+  seq: 4
+}
+
+patch {
+  url: {{base_url}}/posts/1
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{TOKEN}}
+}
+
+body:json {
+   {
+    "title": "Updated Post",
+    "content": "This is an updated post"
+  }
+}

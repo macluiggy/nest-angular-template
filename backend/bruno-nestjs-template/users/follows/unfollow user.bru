@@ -1,0 +1,15 @@
+meta {
+  name: unfollow user
+  type: http
+  seq: 2
+}
+
+delete {
+  url: {{base_url}}/follows/user/15/unfollow/16
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{TOKEN}}
+}

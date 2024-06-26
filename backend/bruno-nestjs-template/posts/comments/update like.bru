@@ -1,0 +1,21 @@
+meta {
+  name: update like
+  type: http
+  seq: 4
+}
+
+patch {
+  url: {{base_url}}/post-comments/2
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{TOKEN}}
+}
+
+body:json {
+  {
+    "content": "updated"
+  }
+}

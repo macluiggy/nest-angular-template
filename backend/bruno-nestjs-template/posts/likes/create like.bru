@@ -1,0 +1,21 @@
+meta {
+  name: create like
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{base_url}}/likes/
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{TOKEN}}
+}
+
+body:json {
+  {
+    "postId": 1
+  }
+}

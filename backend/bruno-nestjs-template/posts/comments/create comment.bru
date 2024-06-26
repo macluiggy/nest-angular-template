@@ -1,0 +1,24 @@
+meta {
+  name: create comment
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{base_url}}/post-comments
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{TOKEN}}
+}
+
+body:json {
+  {
+    "postId": 73, 
+    "userId": 1,
+    "content": "jkjdskjds",
+    "parentCommentId": 58
+  }
+}

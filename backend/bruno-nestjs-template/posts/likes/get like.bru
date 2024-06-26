@@ -1,0 +1,15 @@
+meta {
+  name: get like
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{base_url}}/likes/4
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{TOKEN}}
+}

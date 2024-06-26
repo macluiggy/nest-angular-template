@@ -1,0 +1,15 @@
+meta {
+  name: follow user
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/follows/user/15/follow/16
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: {{TOKEN}}
+}
